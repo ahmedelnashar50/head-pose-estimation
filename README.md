@@ -1,81 +1,109 @@
-🧩 Head Pose Estimation (MediaPipe + SVR)
+# 🧩 Head Pose Estimation (MediaPipe + SVR)
 
-This repository provides a solution for estimating head pose angles (pitch, yaw, roll) from human face images and videos. The system relies on:
+This repository provides a solution for estimating **head pose angles** (pitch, yaw, roll) from human face images and videos.  
 
-MediaPipe FaceMesh → to extract dense 3D facial landmarks.
+The system combines:  
+- **MediaPipe FaceMesh** → to extract dense 3D facial landmarks  
+- **Support Vector Regression (SVR)** → to predict head orientation from the landmarks  
 
-Support Vector Regression (SVR) → to predict head orientation from the landmarks.
+The implementation supports **both API-based and web-based interfaces**, making it flexible for integration into larger applications or direct usage.
 
-The implementation offers both API-based and web-based interfaces, making it flexible for integration into larger applications or direct usage.
+---
 
-📂 Repository Layout
+## 📂 Repository Layout
+
 head_pose_estimation/
-│── app.py                 # Flask app (web interface with HTML templates)
-│── main.py                # FastAPI app (REST API with Swagger docs)
-│── processing.py          # Shared utilities for image & video processing
-│── model.ipynb            # Notebook for training & evaluation
-│── AFLW2000/              # Dataset folder (see dataset link below)
-│── outputs/               # Saved results (images/videos with pose overlay)
-│── templates/             # HTML templates for Flask frontend
-│── requirements.txt       # Required Python packages
-│── .gitignore             # Ignored files (venv, dataset, etc.)
-│── README.md              # Project documentation
 
-📊 Dataset Information
+├── app.py          # Flask app (web interface with HTML templates)
 
-This project is based on the AFLW2000-3D dataset, which contains 2000 face images annotated with 3D landmarks and pose angles.
+├── main.py         # FastAPI app (REST API with Swagger docs)
 
-Source: AFLW2000-3D on Kaggle
+├── processing.py   # Shared utilities for image & video processing
 
-Annotations: Pitch, yaw, and roll angles + 68 3D landmarks
+├── model.ipynb     # Notebook for training & evaluation
 
-Usage: Suitable for head pose estimation, facial landmark detection, and related tasks
+├── AFLW2000/       # Dataset folder (see dataset link below)
 
-🚀 Running the Applications
-Option 1: Flask (with HTML upload form)
+├── outputs/        # Saved results (images/videos with pose overlay)
+
+├── templates/      # HTML templates for Flask frontend
+
+├── requirements.txt # Required Python packages
+
+├── .gitignore      # Ignored files (venv, dataset, etc.)
+
+└── README.md       # Project documentation
+
+---
+
+## 📊 Dataset Information
+
+This project is based on the **AFLW2000-3D dataset**, which contains **2000 face images** annotated with 3D landmarks and pose angles.  
+
+- **Source:** [AFLW2000-3D on Kaggle](https://www.kaggle.com/datasets)  
+- **Annotations:** Pitch, yaw, and roll angles + 68 3D landmarks  
+- **Usage:** Suitable for head pose estimation, facial landmark detection, and related tasks  
+
+---
+
+## 🚀 Running the Applications
+
+### Option 1: Flask (with HTML upload form)
+```bash
 python app.py
+```
+Visit → http://127.0.0.1:5000/
 
-
-Visit: http://127.0.0.1:5000/
-
-Option 2: FastAPI (interactive API docs)
+### Option 2: FastAPI (interactive API docs)
+```bash
 uvicorn main:app --reload
+```
+Visit → http://127.0.0.1:8000/docs
 
+---
 
-Visit: http://127.0.0.1:8000/docs
+## 🧠 Model Workflow
 
-🧠 Model Workflow
-
-Data preprocessing using pose_prediction.ipynb
+### Data Preprocessing (model.ipynb)
 
 Extract landmarks from dataset
 
 Align inputs for regression
 
-Model training
+### Model Training
 
 Train SVR for each angle (pitch, yaw, roll)
 
-Prediction
+### Prediction
 
 For a new image or video → extract landmarks → pass to trained SVR → get angles
 
-Visualization
+### Visualization
 
 Render 3D orientation axes on face in images/videos
 
-Save trained models with:
+### Model Saving
 
+```bash
 import joblib
 joblib.dump(model, "svr_model.pkl")
+```
+---
 
-📌 Next Steps
+## 📌 Next Steps
 
-Enable real-time webcam streaming
+✅ Enable real-time webcam streaming
 
-Extend with deep learning models for improved accuracy
+✅ Extend with deep learning models for improved accuracy
 
-Provide deployment examples (Docker, Hugging Face Spaces, Streamlit)
+✅ Provide deployment examples (Docker, Hugging Face Spaces, Streamlit)
 
-👤 Author
+---
+
+## 👤 Author
+
 Developed by Ahmed Elnashar
+
+
+
+Visit → http://127.0.0.1:8000/docs
