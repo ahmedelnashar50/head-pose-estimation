@@ -1,0 +1,10 @@
+__pycache__/
+._pycache_/
+AFLW2000/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Head Pose Estimation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      padding: 40px;
+      text-align: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+    }
+    .download-link {
+      display: inline-block;
+      margin-top: 15px;
+      background: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .download-link:hover {
+      background: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Head Pose Estimation</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".jpg,.jpeg,.png,.mp4,.avi,.mov,.mkv" required>
+      <br>
+      <button type="submit">Upload & Predict</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById("upload-form").onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      document.getElementById("result").innerHTML = "Processing...";
+      
+      try {
+        const response = await fetch("/predict", {
+          method: "POST",
+          body: formData
+        });
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "output_result";
+          a.textContent = "Download Processed File";
+          a.className = "download-link";
+          document.getElementById("result").innerHTML = "";
+          document.getElementById("result").appendChild(a);
+        } else {
+          const error = await response.json();
+          document.getElementById("result").innerHTML = "Error: " + error.error;
+        }
+      } catch (err) {
+        document.getElementById("result").innerHTML = "Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
