@@ -12,28 +12,19 @@ The implementation supports **both API-based and web-based interfaces**, making 
 
 ## 📂 Repository Layout
 
+```
 head_pose_estimation/
-
-├── app.py          # Flask app (web interface with HTML templates)
-
-├── main.py         # FastAPI app (REST API with Swagger docs)
-
-├── processing.py   # Shared utilities for image & video processing
-
-├── model.ipynb     # Notebook for training & evaluation
-
-├── AFLW2000/       # Dataset folder (see dataset link below)
-
-├── outputs/        # Saved results (images/videos with pose overlay)
-
-├── templates/      # HTML templates for Flask frontend
-
-├── requirements.txt # Required Python packages
-
-├── .gitignore      # Ignored files (venv, dataset, etc.)
-
-└── README.md       # Project documentation
-
+├── app.py            # Flask app (web interface with HTML templates)
+├── main.py           # FastAPI app (REST API with Swagger docs)
+├── processing.py     # Shared utilities for image & video processing
+├── model.ipynb       # Notebook for training & evaluation
+├── AFLW2000/         # Dataset folder (see dataset link below)
+├── outputs/          # Saved results (images/videos with pose overlay)
+├── templates/        # HTML templates for Flask frontend
+├── requirements.txt  # Required Python packages
+├── .gitignore        # Ignored files (venv, dataset, etc.)
+└── README.md         # Project documentation
+```
 ---
 
 ## 📊 Dataset Information
@@ -103,7 +94,3 @@ joblib.dump(model, "svr_model.pkl")
 ## 👤 Author
 
 Developed by Ahmed Elnashar
-
-
-
-Visit → http://127.0.0.1:8000/docs
